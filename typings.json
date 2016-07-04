@@ -1,0 +1,11 @@
+{
+  "name": "part3-pay",
+  "dependencies": {},
+  "globalDependencies": {
+    "bluebird": "registry:dt/bluebird#2.0.0+20160701023356",
+    "express": "registry:dt/express#4.0.0+20160317120654",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160701212727",
+    "node": "registry:dt/node#6.0.0+20160621231320",
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
+  }
+}

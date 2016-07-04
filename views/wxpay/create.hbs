@@ -1,0 +1,24 @@
+{{#extend "title"}} 微信订单提交 {{/extend}}
+
+<form action="/wxpay/create" method="post">
+    <div>
+        订单号: <input name="out_trade_no" type="text" value="{{orderNo}}">
+    </div>
+    <div>
+        商品描述: <input name="body" type="text" value="测试商品">
+    </div>
+    <div>
+        总金额: <input name="total_fee" type="text" value="1"> 分
+    </div>
+    <div>
+        用户ip: <input name="spbill_create_ip" type="text" value="192.168.100.201">
+    </div>
+    <div>
+        交易类型: 
+        <input name="trade_type" type="radio" value="JSAPI"> JSAPI
+        <input name="trade_type" type="radio" value="NATIVE"> NATIVE
+    </div>
+    <div>
+        <button type="submit">提交</button>
+    </div>
+</form>

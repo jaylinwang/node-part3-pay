@@ -1,0 +1,22 @@
+{{#extend "title"}} 微信订单提交 {{/extend}}
+
+<form action="/alipay/wap" method="post">
+    <div>
+        订单号: <input name="out_trade_no" type="text" value="{{orderNo}}">
+    </div>
+    <div>
+        商品名称: <input name="subject" type="text" value="test">
+    </div>
+    <div>
+        商品描述: <input name="body" type="text" value="test">
+    </div>
+   <div>
+        商品展示超链接: <input name="show_url" type="text" value="http://www.hiteacher.com.cn/live_course/detail/210">
+    </div>
+    <div>
+        总金额: <input name="total_fee" type="text" value="0.01"> 元
+    </div>
+    <div>
+        <button type="submit">提交</button>
+    </div>
+</form>
