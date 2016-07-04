@@ -2,22 +2,42 @@
 
 const logger = require('../utils/logger');
 const WXPay = require('../proxy/WXPay');
+const OAuth = require('wechat-oauth');
+
+const wxpayCfg = require('../configs/wxpay');
+const userCfg = require('../configs/user');
+const client = new OAuth(userCfg.wxpay.appid, userCfg.wxpay.app_secret);
 
 /**
  * 跳转至创建订单页面
  */
-exports.toCreate = function(req, res) {
-    let orderNo = new Date().getTime();
-    res.render('wxpay/create', {
-        orderNo: orderNo
-    });
+exports.toWapSubmit = function(req, res) {
+    let originalUrl = req.originalUrl;
+    let code = req.query.code;
+    if (code) {
+        res.redirect(client.getAuthorizeURL(originalUrl, 'test', 'snsapi_base'));
+    } else {
+        let orderNo = new Date().getTime();
+        client.getAccessToken(code, function(err, result) {
+            let openid = result.data.openid;
+            if (!err) {
+                res.render('wxpay/wap/index', {
+                    orderNo: orderNo,
+                    openid: openid
+                });
+            } else {
+                res.send('error');
+            }
+        });
+    }
 };
 
 /**
  * 提交订单
  */
-exports.create = function(req, res) {
+exports.wapSubmit = function(req, res) {
     let orderInfo = req.body;
+    orderInfo.trade_type = wxpayCfg.trade_type.js_api;
     WXPay.createOrder(orderInfo).then(function(body) {
         logger.info({
             body: body

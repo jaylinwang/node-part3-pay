@@ -5,7 +5,7 @@ const router = express.Router();
 
 const wxpayCtrl = require('../controllers/wxpay');
 
-router.get('/create',wxpayCtrl.toCreate);
-router.post('/create',wxpayCtrl.create);
+router.get('/wap', wxpayCtrl.toWapSubmit);
+router.post('/wap', wxpayCtrl.wapSubmit);
 
 module.exports = router;

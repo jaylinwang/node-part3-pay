@@ -5,27 +5,10 @@ const crypto = require('crypto');
 const parser = require('xml2json');
 
 const logger = require('../utils/logger');
+const sign = require('../utils/sign');
 const requestUtil = require('../utils/request');
 
 const userCfg = require('../configs/user');
-
-/**
- * 生成签名
- * @param  {} params 签名参数
- */
-let generateSignature = function(params) {
-    let signStr = '';
-    let sortKey = Object.keys(params).sort();
-    for (let i = 0; i < sortKey.length; i++) {
-        if (i == 0) {
-            signStr += params[sortKey[i]];
-        } else {
-            signStr += ('&' + params[sortKey[i]]);
-        }
-    }
-    signStr += userCfg.wechat.mch_key;
-    return crypto.createHash('md5').update(signStr, 'utf8').digest('hex').toUpperCase();
-};
 
 /**
  * 请求api
@@ -34,10 +17,12 @@ let generateSignature = function(params) {
  */
 exports.request = function(url, data) {
     let _data = Object.assign({
-        nonce_str: uuid.v1().replace('-',''),
-        notify_url: userCfg.wechat.notify_url
+        appid: userCfg.wxpay.appid,
+        mch_id: userCfg.wxpay.mch_id,
+        nonce_str: uuid.v1().replace(/-/g, ''),
+        notify_url: userCfg.wxpay.notify_url || '#'
     }, data || {});
-    _data.sign = generateSignature(_data);
+    _data.sign = sign.md5(_data, `&key=${userCfg.wxpay.mch_key}`);
 
     // let xml = parse.toXml(_data);
     // logger.error(xml);
@@ -45,14 +30,15 @@ exports.request = function(url, data) {
         xml: {}
     };
 
-    for(let key in _data){
+    for (let key in _data) {
         jsonObj.xml[key] = {
             '$t': _data[key]
         };
     }
+    logger.info(parser.toXml(jsonObj));
     let _options = Object.assign({}, {
         url: url,
-        form: xml,
+        form: parser.toXml(jsonObj),
         method: 'POST'
     });
 
