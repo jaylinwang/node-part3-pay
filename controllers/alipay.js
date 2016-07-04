@@ -1,7 +1,7 @@
 'use strict';
 
 const logger = require('../utils/logger');
-const ALIpay = require('../proxy/ALIpay');
+const ALIpay = require('../proxy/ALIPay');
 
 /**
  * web下单首页
