@@ -1,6 +1,5 @@
 'use strict';
 
-const logger = require('../utils/logger');
 const ALIpay = require('../proxy/ALIPay');
 
 /**

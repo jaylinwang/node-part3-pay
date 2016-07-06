@@ -1,6 +1,6 @@
 'use strict';
 /**
- * 用户相关配置
+ * 支付账号样板文件
  */
 
 module.exports = {
@@ -12,6 +12,11 @@ module.exports = {
          * 微信分配的公众账号ID
          */
         appid: '',
+
+        /**
+         * 微信密钥
+         */
+        app_secret: '',
 
         /**
          * 微信支付分配的商户号
@@ -28,7 +33,7 @@ module.exports = {
          */
         notify_url: ''
     },
-    
+
     /**
      * 用户支付宝账号相关配置
      */
@@ -44,9 +49,15 @@ module.exports = {
         partner_key: '',
 
         /**
+         * 支付宝卖家账号
+         */
+        seller_id: '',
+
+        /**
          * 服务器异步通知页面路径
          */
         notify_url: '',
+
         /**
          * 页面跳转同步通知页面路径
          */
