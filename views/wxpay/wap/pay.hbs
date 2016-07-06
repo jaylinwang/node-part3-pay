@@ -1,0 +1,36 @@
+<input type="hidden" name="appId" id="appId" value="{{payData.appId}}">
+<input type="hidden" name="timeStamp" id="timeStamp" value="{{payData.timeStamp}}">
+<input type="hidden" name="nonceStr" id="nonceStr" value="{{payData.nonceStr}}">
+<input type="hidden" name="package" id="package" value="{{payData.package}}">
+<input type="hidden" name="paySign" id="paySign" value="{{payData.paySign}}">
+<input type="hidden" name="signType" id="signType" value="{{payData.signType}}">
+<script>
+    function onBridgeReady() {
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {
+                "appId": document.getElementById("appId").value, //公众号名称，由商户传入     
+                "timeStamp": document.getElementById("timeStamp").value, //时间戳，自1970年以来的秒数     
+                "nonceStr": document.getElementById("nonceStr").value, //随机串     
+                "package": document.getElementById("package").value,
+                "signType": document.getElementById("signType").value, //微信签名方式:     
+                "paySign": document.getElementById("paySign").value //微信签名 
+            },
+            function(res) {
+                console.log(res);
+                if (res.err_msg == "get_brand_wcpay_request：ok") {
+                    
+                } // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。 
+            }
+        );
+    }
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+</script>
