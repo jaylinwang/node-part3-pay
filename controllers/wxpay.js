@@ -19,6 +19,7 @@ exports.toWapSubmit = function(req, res) {
     //     orderNo: orderNo,
     //     openid: 'oWEeAwq75pCS4OqTsN2LEeDB3NE8'
     // });
+    
     let originalUrl = req.originalUrl;
     let code = req.query.code;
     console.log(code);
