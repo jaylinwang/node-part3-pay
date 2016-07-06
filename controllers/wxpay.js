@@ -15,8 +15,9 @@ const client = new OAuth(userCfg.wxpay.appid, userCfg.wxpay.app_secret);
 exports.toWapSubmit = function(req, res) {
     let originalUrl = req.originalUrl;
     let code = req.query.code;
-    if (code) {
-        res.redirect(client.getAuthorizeURL(originalUrl, 'test', 'snsapi_base'));
+    console.log(code);
+    if (!code) {
+        res.redirect(client.getAuthorizeURL('http://dev.jx-cloud.cc'+originalUrl, 'test', 'snsapi_base'));
     } else {
         let orderNo = new Date().getTime();
         client.getAccessToken(code, function(err, result) {

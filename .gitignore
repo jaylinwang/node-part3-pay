@@ -49,3 +49,7 @@ typings
 # 支付账号信息
 #
 configs/user.js
+
+# for emacs
+*~
+[#]*[#]
