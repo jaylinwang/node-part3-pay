@@ -46,7 +46,7 @@ exports.request = function(url, data) {
     return requestUtil.request(_options).then(function(res) {
         let time = new Date() - beginDate;
         logger.info(`request <${url}> cost ${time}`);
-        return res;
+        return JSON.parse(parser.toJson(res.body)).xml;
     }).catch(function(error) {
         logger.error({
             error: error

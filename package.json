@@ -25,6 +25,8 @@
     "bunyan": "^1.8.1",
     "express": "^4.14.0",
     "hbs": "^4.0.0",
+    "node-qrcode": "0.0.4",
+    "qrcode": "^0.4.2",
     "requestretry": "^1.9.0",
     "uuid": "^2.0.2",
     "wechat-oauth": "^1.1.1",

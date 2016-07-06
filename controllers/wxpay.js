@@ -3,6 +3,7 @@
 const logger = require('../utils/logger');
 const WXPay = require('../proxy/WXPay');
 const OAuth = require('wechat-oauth');
+const QRCode = require('qrcode');
 
 const wxpayCfg = require('../configs/wxpay');
 const userCfg = require('../configs/user');
@@ -43,5 +44,40 @@ exports.wapSubmit = function(req, res) {
             body: body
         }, 'unifiedorder result');
         res.json(body);
+    });
+};
+
+/**
+ * web下单页
+ */
+exports.toWebSubmit = function(req, res) {
+    let orderNo = new Date().getTime();
+    res.render('wxpay/web/index', {
+        orderNo: orderNo
+    });
+};
+
+/**
+ * web下单
+ */
+exports.webSubmit = function(req, res) {
+    let orderInfo = req.body;
+    orderInfo.trade_type = wxpayCfg.trade_type.native;
+    WXPay.createOrder(orderInfo).then(function(body) {
+        logger.info({
+            body: body
+        }, 'unifiedorder result');
+        if (body.return_code == 'SUCCESS') {
+            QRCode.draw(body.code_url, {}, function(err, canvas) {
+                if (!err) {
+                    let ctx = canvas.getContext('2d');
+                    ctx.height = 3000;
+                    ctx.width = 3000;
+                    let url = canvas.toDataURL('image/svg');
+                    res.send(`<img src="${url}" height="400" width="400"/>`);
+                }
+            });
+        }
+
     });
 };
