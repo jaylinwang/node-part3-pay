@@ -11,4 +11,8 @@ router.post('/web', alipayCtrl.webSubmit);
 router.get('/wap', alipayCtrl.toWapSubmit);
 router.post('/wap', alipayCtrl.wapSubmit);
 
+router.get('/refund', alipayCtrl.toRefundSubmit);
+router.post('/refund', alipayCtrl.refundSubmit);
+router.post('/refund/notify', alipayCtrl.doRefundNotify);
+
 module.exports = router;

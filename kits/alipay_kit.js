@@ -14,12 +14,8 @@ const alipayCfg = require('../configs/alipay');
 exports.buildRequestForm = function(data) {
     let _data = Object.assign({
         partner: userCfg.alipay.partner,
-        seller_id: userCfg.alipay.seller_id,
         _input_charset: 'utf-8',
-        payment_type: 1,
-        sign_type: 'MD5',
-        notify_url: userCfg.alipay.notify_url,
-        return_url: userCfg.alipay.return_url
+        sign_type: 'MD5'
     }, data || {});
     _data.sign = sign.md5(_data, userCfg.alipay.partner_key);
 

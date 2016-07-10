@@ -23,6 +23,7 @@
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "bunyan": "^1.8.1",
+    "dateformat": "^1.0.12",
     "express": "^4.14.0",
     "hbs": "^4.0.0",
     "node-qrcode": "0.0.4",

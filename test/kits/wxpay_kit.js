@@ -16,8 +16,5 @@ let order = {
 };
 
 test('wxpay pay request', t => {
-    wxpayKit.request(wxpayCfg.api_url.unifiedorder,order).then(function(body){
-        console.error(body);
-    });
     t.pass();
 });

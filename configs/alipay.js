@@ -21,6 +21,11 @@ module.exports = {
         /**
          * 即使到账支付下单
          */
-        direct_pay: 'create_direct_pay_by_user'
+        direct_pay: 'create_direct_pay_by_user',
+
+        /**
+         * 即时到帐退款
+         */
+        refund_fastpay: 'refund_fastpay_by_platform_pwd',
     }
 };

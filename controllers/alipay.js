@@ -1,6 +1,10 @@
 'use strict';
 
 const ALIpay = require('../proxy/ALIPay');
+const dateformat = require('dateformat');
+const userCfg = require('../configs/user');
+const sign = require('../utils/sign');
+const logger = require('../utils/logger');
 
 /**
  * web下单首页
@@ -21,6 +25,28 @@ exports.webSubmit = function(req, res) {
         res.send(html);
     });
 };
+
+/**
+ * 跳转至支付宝退款
+ */
+exports.toRefundSubmit = function(req, res) {
+    //2016071021001004700254981079^0.01^协商退款
+    let batchNo = dateformat(new Date(), 'yyyymmdd') + new Date().getTime();
+    res.render('alipay/refund/index', {
+        batchNo: batchNo
+    });
+};
+
+/**
+ * 跳转至支付宝退款
+ */
+exports.refundSubmit = function(req, res) {
+    let refundInfo = req.body;
+    ALIpay.refundFastpay(refundInfo).then(function(html) {
+        res.send(html);
+    });
+};
+
 
 /**
  * wap下单首页
@@ -45,10 +71,30 @@ exports.wapSubmit = function(req, res) {
 /**
  * 响应回调信息
  */
-exports.doNotify = function(req, res) {
+exports.doPayNotify = function(req, res) {
     res.send('ok');
 };
 
-exports.doReturn = function(req,res){
+/**
+ * 支付调转
+ */
+exports.doPayReturn = function(req, res) {
     res.render('return ok');
+};
+
+/**
+ * 退款回调
+ */
+exports.doRefundNotify = function(req, res) {
+    let notifyData = req.query;
+    let result = {};
+    if (sign.verify(notifyData, userCfg.alipay.partner_key, notifyData.sign)) {
+        result = notifyData;
+        logger.info({
+            refundResult: result
+        }, '退款结果');
+    } else {
+        logger.error('验证签名错误');
+    }
+
 };

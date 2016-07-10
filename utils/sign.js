@@ -48,9 +48,23 @@ let dictSort = function(params) {
  * md5签名
  * @param  {} params 签名参数
  */
-exports.md5 = function(params, key) {
+let md5 = function(params, key) {
     let _params = filter(params);
     let signStr = createLinkString(dictSort(_params));
     signStr += key;
     return crypto.createHash('md5').update(signStr, 'utf8').digest('hex');
+};
+
+/**
+ * md5签名
+ * @param  {} params 签名参数
+ */
+exports.md5 = md5;
+
+/**
+ * 验证签名
+ */
+exports.verify = function(params, key, sign) {
+    let mySign = md5(params, key);
+    return mySign === sign;
 };
