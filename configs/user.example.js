@@ -1,6 +1,6 @@
 'use strict';
 /**
- * 支付账号样板文件
+ * 用户相关配置
  */
 
 module.exports = {
@@ -54,13 +54,23 @@ module.exports = {
         seller_id: '',
 
         /**
-         * 服务器异步通知页面路径
+         * 服务器异步通知页面路径（wap支付）
          */
-        notify_url: '',
+        wap_notify_url: '',
 
         /**
-         * 页面跳转同步通知页面路径
+         * 服务器异步通知页面路径（pc支付）
          */
-        return_url: ''
+        web_notify_url: '',
+
+        /**
+         * 页面跳转同步通知页面路径（支付）
+         */
+        pay_return_url: '',
+
+        /**
+         * 服务器异步通知页面路径（退款）
+         */
+        refund_notify_url: ''
     }
 };

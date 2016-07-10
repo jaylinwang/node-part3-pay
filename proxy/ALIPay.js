@@ -14,8 +14,7 @@ exports.submitOrderFromWeb = function(orderInfo) {
         service: alipayCfg.service.direct_pay,
         payment_type: 1,
         seller_id: userCfg.alipay.seller_id,
-        notify_url: userCfg.alipay.pay_notify_url,
-        return_url: userCfg.alipay.pay_return_url
+        notify_url: userCfg.alipay.web_notify_url
     }, orderInfo);
     return alipayKit.buildRequestForm(_orderInfo);
 };
@@ -29,8 +28,7 @@ exports.submitOrderFromWap = function(orderInfo) {
         service: alipayCfg.service.wap_direct_pay,
         payment_type: 1,
         seller_id: userCfg.alipay.seller_id,
-        notify_url: userCfg.alipay.pay_notify_url,
-        return_url: userCfg.alipay.pay_return_url
+        notify_url: userCfg.alipay.wap_notify_url
     }, orderInfo);
     return alipayKit.buildRequestForm(_orderInfo);
 };

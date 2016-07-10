@@ -68,24 +68,42 @@ exports.wapSubmit = function(req, res) {
 };
 
 /**
- * 响应回调信息
+ * 响应wap端回调信息
  */
-exports.doPayNotify = function(req, res) {
-    res.send('ok');
+exports.doWapNotify = function(req) {
+    let notifyData = req.body;
+    let result = {};
+    if (sign.verify(notifyData, userCfg.alipay.partner_key, notifyData.sign)) {
+        result = notifyData;
+        logger.info({
+            refundResult: result
+        }, 'wap支付结果');
+    } else {
+        logger.error('验证签名错误');
+    }
 };
 
 /**
- * 支付调转
+ * 响应web端回调信息
  */
-exports.doPayReturn = function(req, res) {
-    res.render('return ok');
+exports.doWebNotify = function(req) {
+    let notifyData = req.body;
+    let result = {};
+    if (sign.verify(notifyData, userCfg.alipay.partner_key, notifyData.sign)) {
+        result = notifyData;
+        logger.info({
+            refundResult: result
+        }, 'web支付结');
+    } else {
+        logger.error('验证签名错误');
+    }
 };
 
 /**
  * 退款回调
  */
-exports.doRefundNotify = function(req, res) {
-    let notifyData = req.query;
+exports.doRefundNotify = function(req) {
+    let notifyData = req.body;
     let result = {};
     if (sign.verify(notifyData, userCfg.alipay.partner_key, notifyData.sign)) {
         result = notifyData;
