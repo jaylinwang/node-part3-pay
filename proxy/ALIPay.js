@@ -36,7 +36,7 @@ exports.submitOrderFromWap = function(orderInfo) {
 };
 
 /**
- * 即时到帐退款
+ *支付宝退款
  */
 exports.refundFastpay = function(refundInfo) {
     let _refundInfo = Object.assign({

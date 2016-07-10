@@ -24,7 +24,7 @@ module.exports = {
         direct_pay: 'create_direct_pay_by_user',
 
         /**
-         * 即时到帐退款
+         * 退款
          */
         refund_fastpay: 'refund_fastpay_by_platform_pwd',
     }

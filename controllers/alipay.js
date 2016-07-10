@@ -30,7 +30,6 @@ exports.webSubmit = function(req, res) {
  * 跳转至支付宝退款
  */
 exports.toRefundSubmit = function(req, res) {
-    //2016071021001004700254981079^0.01^协商退款
     let batchNo = dateformat(new Date(), 'yyyymmdd') + new Date().getTime();
     res.render('alipay/refund/index', {
         batchNo: batchNo
@@ -96,5 +95,4 @@ exports.doRefundNotify = function(req, res) {
     } else {
         logger.error('验证签名错误');
     }
-
 };
